@@ -1,6 +1,32 @@
+import { useState } from "react"
+
 function ProductForm() {
+
+  const [name, setName] = useState("")
+  const [image, setImage] = useState("")
+  const [price, setPrice] = useState("")
+  const [description, setDescription] = useState("")  
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    //สร้างJSON objectด้วยข้อมูลที่ผู้ใช้ป้อน
+    const productData = {
+      name: name,
+      price: parseFloat(price), // Convert to float if needed
+      image: image,
+      description: description,
+    };
+
+    // แสดง Alert ด้วยข้อมูลที่จัดรูปแบบเป็น JSON
+    alert(JSON.stringify(productData, null, 2)); 
+    // The third parameter (2) is for 
+    //  จัด formatting with an indentation of 2 spaces
+  };    
+     
+
   return (
-    <form className="post-form">
+    <form className="post-form" onSubmit={handleSubmit}>
       <h1>Create Product Form</h1>
       <div className="input-container">
         <label>
@@ -10,7 +36,10 @@ function ProductForm() {
             name="name"
             type="text"
             placeholder="Enter name here"
-            onChange={() => {}}
+            value={name}
+            onChange={(event) => {
+              setName(event.target.value)
+            }}
           />
         </label>
       </div>
@@ -22,7 +51,11 @@ function ProductForm() {
             name="image"
             type="text"
             placeholder="Enter image url here"
-            onChange={() => {}}
+            value={image}
+            onChange={(event) => {
+              setImage(event.target.value)
+            }}
+            
           />
         </label>
       </div>
@@ -34,7 +67,10 @@ function ProductForm() {
             name="price"
             type="number"
             placeholder="Enter price here"
-            onChange={() => {}}
+            value={price}
+            onChange={(event) => {
+              setPrice(event.target.value)  
+            }}
           />
         </label>
       </div>
@@ -46,7 +82,10 @@ function ProductForm() {
             name="description"
             type="text"
             placeholder="Enter description here"
-            onChange={() => {}}
+            value={description}
+            onChange={(event) => {
+              setDescription(event.target.value)               
+            }}
             rows={4}
             cols={30}
           />
